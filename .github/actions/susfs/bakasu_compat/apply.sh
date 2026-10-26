@@ -31,6 +31,12 @@ BAKASU_KBUILD="$BAKASU_KSU/Kbuild"
   exit 1
 }
 
+# New BakaSU already provides these symbols natively
+if [ -f "$BAKASU_KSU/preinit/preinit.c" ]; then
+  echo "BakaSU ships preinit natively - skipping compat layer"
+  exit 0
+fi
+
 # compat.c: defines all SUSFS-expected symbols that BakaSU lacks
 cat > "$BAKASU_KSU/bakasu_susfs_compat.c" <<'COMPAT'
 /* BakaSU SUSFS compat: global symbol definitions for SUSFS patch extern refs.
